@@ -5,3 +5,16 @@ dist/
 .env
 .env.*
 *.log
+Thumbs.db
+
+# Internal material: never published (partner names, financial model, research, working files)
+.impeccable/
+.claude/
+PRODUCT.md
+DESIGN.md
+*.pdf
+*.ai
+*.md
+Embaixada_Gourmet_Proposta_de_Sociedade.pdf
+assets/Space_Grotesk/
+assets/website style.md
