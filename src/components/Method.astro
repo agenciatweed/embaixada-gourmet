@@ -1,0 +1,317 @@
+---
+import { pillars, matrix } from '../data/content';
+---
+<section class="section method" id="metodo" aria-labelledby="metodo-title">
+  <div class="container">
+    <header class="method-head">
+      <h2 class="h2" id="metodo-title">A operação decide antes do layout.</h2>
+      <p class="lead">
+        Toda decisão de comunicação passa pela operação primeiro. Um problema em um pilar quase sempre tem causa em
+        outro, por isso os quatro trabalham sobre o mesmo diagnóstico.
+      </p>
+    </header>
+
+    <ol class="pillars">
+      {pillars.map((p) => (
+        <li class="pillar">
+          <h3 class="h3">{p.name}</h3>
+          <ul>
+            {p.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </li>
+      ))}
+    </ol>
+
+    <div class="matrix-block">
+      <div class="matrix-copy">
+        <h3 class="matrix-title">Só anunciamos o que dá lucro.</h3>
+        <p>
+          Cada prato do cardápio é classificado por margem e por popularidade. A mídia só empurra o que deixa
+          dinheiro na casa. Uma agência sozinha anunciaria o prato mais fotogênico; uma consultoria sozinha acertaria
+          o CMV de um salão vazio.
+        </p>
+        <p class="matrix-hint">Toque em cada quadrante para ver o que acontece com o prato.</p>
+      </div>
+
+      <figure class="matrix-card">
+        <figcaption class="matrix-cap">
+          <span class="tag">Engenharia de cardápio</span>
+          <span class="matrix-flag">Exemplo ilustrativo</span>
+        </figcaption>
+        <div class="matrix-plot">
+          <span class="axis axis-y" aria-hidden="true">Mais margem</span>
+          <div class="matrix-grid" role="group" aria-label="Quadrantes da matriz de cardápio">
+            {matrix.map((q) => (
+              <button
+                type="button"
+                class:list={['quad', `quad-${q.id}`]}
+                aria-pressed={q.id === 'estrela' ? 'true' : 'false'}
+                data-quad={q.id}
+              >
+                <span class="quad-name">{q.name}</span>
+                <span class="quad-rule">{q.margin} · {q.popularity}</span>
+                <span class="quad-action">{q.action}</span>
+              </button>
+            ))}
+          </div>
+          <span class="axis axis-x" aria-hidden="true">Mais pedido</span>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<script>
+  const grid = document.querySelector<HTMLElement>('.matrix-grid');
+  grid?.addEventListener('click', (event) => {
+    const target = (event.target as HTMLElement).closest<HTMLButtonElement>('.quad');
+    if (!target) return;
+    grid.querySelectorAll<HTMLButtonElement>('.quad').forEach((q) => {
+      q.setAttribute('aria-pressed', q === target ? 'true' : 'false');
+    });
+  });
+</script>
+
+<style>
+  .method-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 96px);
+    align-items: end;
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: clamp(48px, 5vw, 88px) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .pillar {
+    padding: clamp(24px, 2vw, 36px) clamp(16px, 1.6vw, 28px) 0 0;
+  }
+
+  .pillar + .pillar {
+    padding-left: clamp(16px, 1.6vw, 28px);
+    border-left: 1px solid var(--rule);
+  }
+
+  .pillar .h3 {
+    color: var(--paper);
+  }
+
+  .pillar ul {
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pillar ul li {
+    padding-block: 10px;
+    border-bottom: 1px solid var(--rule);
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--smoke);
+  }
+
+  .matrix-block {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(32px, 5vw, 112px);
+    align-items: center;
+    margin-top: clamp(80px, 8vw, 160px);
+  }
+
+  .matrix-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-stretch: 62%;
+    font-variation-settings: 'wdth' 62;
+    font-size: clamp(2.5rem, 4.4vw, 4.75rem);
+    line-height: 1.04;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .matrix-copy p {
+    max-width: 54ch;
+    margin-top: 24px;
+    font-size: clamp(1.0625rem, 1.2vw, 1.25rem);
+    line-height: 1.6;
+    color: var(--smoke);
+  }
+
+  .matrix-copy .matrix-hint {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--green);
+  }
+
+  .matrix-card {
+    margin: 0;
+    padding: clamp(20px, 2vw, 32px);
+    background: var(--glass);
+    border: 1px solid var(--glass-line);
+    border-radius: var(--radius-card);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .matrix-cap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: var(--paper);
+  }
+
+  .matrix-flag {
+    padding: 6px 12px;
+    border: 1px solid var(--glass-line);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--smoke);
+  }
+
+  .matrix-plot {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr auto;
+    gap: 12px;
+  }
+
+  .axis {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--smoke);
+  }
+
+  .axis-y {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    align-self: center;
+  }
+
+  .axis-x {
+    grid-column: 2;
+    justify-self: center;
+  }
+
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    border: 1px solid var(--rule-strong);
+    border-radius: calc(var(--radius-card) * 0.6);
+    overflow: hidden;
+  }
+
+  .quad {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: clamp(150px, 12vw, 220px);
+    padding: clamp(16px, 1.6vw, 26px);
+    border: 0;
+    background: transparent;
+    color: var(--paper);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background 300ms var(--ease-out);
+  }
+
+  .quad:nth-child(odd) {
+    border-right: 1px solid var(--rule-strong);
+  }
+
+  .quad:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  .quad:hover {
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .quad-name {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-stretch: 62%;
+    font-variation-settings: 'wdth' 62;
+    font-size: clamp(1.75rem, 2.3vw, 2.5rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .quad-rule {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: var(--smoke);
+  }
+
+  .quad-action {
+    margin-top: auto;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.35;
+    opacity: 0.35;
+    transition: opacity 300ms var(--ease-out);
+  }
+
+  .quad[aria-pressed='true'] {
+    background: var(--green);
+  }
+
+  .quad[aria-pressed='true'] .quad-rule,
+  .quad[aria-pressed='true'] .quad-action {
+    color: var(--void);
+  }
+
+  .quad[aria-pressed='true'] .quad-action,
+  .quad:hover .quad-action {
+    opacity: 1;
+  }
+
+  @media (max-width: 1100px) {
+    .pillars {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pillar:nth-child(3) {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .matrix-block {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .method-head {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .pillars {
+      grid-template-columns: 1fr;
+    }
+
+    .pillar + .pillar {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .quad-action {
+      opacity: 1;
+    }
+  }
+</style>

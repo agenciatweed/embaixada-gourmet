@@ -1,0 +1,60 @@
+---
+import Icon from './Icon.astro';
+import { whatsappHref } from '../data/site';
+---
+<section class="final" aria-labelledby="final-title">
+  <div class="container final-inner">
+    <h2 class="final-title" id="final-title">Comece por 45 minutos de conversa.</h2>
+    <div class="final-side">
+      <p>
+        A conversa de encaixe é gratuita. Você conta o momento da casa, nós dizemos com franqueza se e como a
+        Embaixada pode ajudar.
+      </p>
+      <a class="btn-block on-green" href={whatsappHref} target="_blank" rel="noopener">
+        Chamar no WhatsApp <Icon name="arrow-right" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .final {
+    padding-block: clamp(88px, 9vw, 176px);
+    background: var(--green);
+    color: var(--void);
+  }
+
+  .final-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: clamp(32px, 5vw, 112px);
+    align-items: end;
+  }
+
+  .final-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-stretch: 62%;
+    font-variation-settings: 'wdth' 62;
+    font-size: clamp(3.25rem, 8vw, 9rem);
+    line-height: 1;
+    text-transform: uppercase;
+    text-wrap: balance;
+    color: var(--white);
+  }
+
+  .final-side p {
+    max-width: 40ch;
+    margin-bottom: 32px;
+    font-size: clamp(1.0625rem, 1.3vw, 1.375rem);
+    line-height: 1.5;
+    font-weight: 500;
+    color: var(--void);
+  }
+
+  @media (max-width: 900px) {
+    .final-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

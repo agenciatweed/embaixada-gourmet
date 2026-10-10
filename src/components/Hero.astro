@@ -1,0 +1,354 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import passePhoto from '../../assets/plates/photo.png';
+import { whatsappHref } from '../data/site';
+
+const band = [
+  { text: 'Gastronomia 360°', outline: false },
+  { text: 'Estratégia', outline: true },
+  { text: 'Operação', outline: false },
+  { text: 'Marca', outline: true },
+  { text: 'Demanda', outline: false },
+];
+---
+<section class="hero" id="topo" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <h1 class="hero-title" id="hero-title">
+      <span>Abrir.</span>
+      <span>Ajustar.</span>
+      <span>Crescer.</span>
+    </h1>
+    <p class="hero-sub">Consultoria integrada para negócios de gastronomia. <span>Operação, marca e demanda num único parceiro.</span></p>
+    <a class="block-button" href={whatsappHref} target="_blank" rel="noopener">
+      Chamar no WhatsApp <Icon name="arrow-right" class="block-button-icon" />
+    </a>
+  </div>
+
+  <figure class="hero-photo">
+    <Image
+      src={passePhoto}
+      alt="Chef finalizando um prato no passe da cozinha, sob as lâmpadas de aquecimento (imagem ilustrativa)"
+      widths={[640, 960, 1290, 1800, 2560]}
+      sizes="(max-width: 900px) 100vw, 48vw"
+      loading="eager"
+      fetchpriority="high"
+      decoding="sync"
+      format="webp"
+      quality={78}
+    />
+    <figcaption class="passe-tag">O passe</figcaption>
+  </figure>
+
+  <div class="band" aria-hidden="true">
+    <div class="band-track">
+      {[0, 1].map(() => (
+        <div class="band-set">
+          {band.map((item) => (
+            <>
+              <span class:list={['band-word', { 'is-outline': item.outline }]}>{item.text}</span>
+              <span class="band-dot"></span>
+            </>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    height: max(100svh, 56.55vw);
+    min-height: 640px;
+    overflow: hidden;
+    background: var(--ink);
+  }
+
+  .hero-copy {
+    position: absolute;
+    left: var(--gutter);
+    top: 10.6vw;
+    width: 44vw;
+  }
+
+  .hero-title {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-stretch: 62%;
+    font-variation-settings: 'wdth' 62;
+    font-size: 11.75vw;
+    line-height: 0.79;
+    letter-spacing: -0.012em;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+
+  .hero-title span {
+    display: block;
+  }
+
+  .hero-sub {
+    position: absolute;
+    top: 28.3vw;
+    max-width: 42vw;
+    font-size: 1.42vw;
+    font-weight: 400;
+    line-height: 1.3;
+    color: #c9c9cc;
+  }
+
+  .hero-sub span {
+    color: var(--smoke);
+  }
+
+  .block-button {
+    position: absolute;
+    top: 33.9vw;
+    display: inline-flex;
+    align-items: center;
+    gap: 1.1vw;
+    height: 3.8vw;
+    padding: 0 2.6vw 0 1.55vw;
+    background: var(--white);
+    color: var(--void);
+    border: 2px solid var(--void);
+    box-shadow: 0.3vw 0.3vw 0 #1c1c1f;
+    font-family: var(--font-display);
+    font-stretch: 78%;
+    font-variation-settings: 'wdth' 78;
+    font-size: 1.45vw;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      transform 160ms var(--ease-out),
+      box-shadow 160ms var(--ease-out),
+      background 160ms var(--ease-out),
+      color 160ms var(--ease-out);
+  }
+
+  .block-button :global(.block-button-icon) {
+    width: 1.3vw;
+    height: auto;
+  }
+
+  .block-button:hover {
+    transform: translate(0.3vw, 0.3vw);
+    box-shadow: 0 0 0 #1c1c1f;
+    background: var(--green);
+  }
+
+  .hero-photo {
+    position: absolute;
+    left: 48.7vw;
+    top: 8.67vw;
+    width: 48.2vw;
+    height: 37.88vw;
+    margin: 0;
+    overflow: hidden;
+    border: max(1px, 0.07vw) solid var(--rule-strong);
+    border-radius: var(--radius-card);
+  }
+
+  .hero-photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .passe-tag {
+    position: absolute;
+    right: 0.75vw;
+    bottom: 0.85vw;
+    padding: 0.85vw 1.05vw;
+    background: rgba(10, 10, 10, 0.88);
+    border: 1px solid var(--rule-strong);
+    border-radius: 0.75vw;
+    font-family: var(--font-mono);
+    font-size: 1.2vw;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+
+  .band {
+    position: absolute;
+    left: -2vw;
+    top: 50.3vw;
+    width: 106vw;
+    height: 9vw;
+    background: var(--green);
+    transform: rotate(-2deg);
+    transform-origin: left top;
+    overflow: hidden;
+  }
+
+  .band-track {
+    display: flex;
+    width: max-content;
+    animation: band-run 32s linear infinite;
+  }
+
+  .band:hover .band-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes band-run {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .hero-title span {
+    animation: line-rise 1100ms var(--ease-out) both;
+  }
+
+  .hero-title span:nth-child(2) {
+    animation-delay: 90ms;
+  }
+
+  .hero-title span:nth-child(3) {
+    animation-delay: 180ms;
+  }
+
+  @keyframes line-rise {
+    from {
+      clip-path: inset(0 0 100% 0);
+      translate: 0 0.35em;
+    }
+    to {
+      clip-path: inset(0 0 -10% 0);
+      translate: 0 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .band-track,
+    .hero-title span {
+      animation: none;
+    }
+  }
+
+  .band-set {
+    display: flex;
+    align-items: center;
+    gap: 1.7vw;
+    padding: 0.9vw 0.85vw 0 3.1vw;
+  }
+
+  .band-word {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-stretch: 62%;
+    font-variation-settings: 'wdth' 62;
+    font-size: 4.3vw;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--white);
+  }
+
+  .band-word.is-outline {
+    color: transparent;
+    -webkit-text-stroke: max(1px, 0.07vw) var(--white);
+  }
+
+  .band-dot {
+    width: 0.85vw;
+    height: 0.85vw;
+    border-radius: 50%;
+    background: var(--white);
+    flex: none;
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      height: auto;
+      min-height: 0;
+      padding: 104px var(--gutter) 0;
+    }
+
+    .hero-copy {
+      position: static;
+      width: auto;
+    }
+
+
+    .hero-title {
+      font-size: clamp(4.5rem, 23vw, 9rem);
+      line-height: 0.86;
+    }
+
+    .hero-sub {
+      position: static;
+      max-width: none;
+      margin-top: 20px;
+      font-size: 1.125rem;
+    }
+
+    .block-button {
+      position: static;
+      height: 56px;
+      margin-top: 24px;
+      padding: 0 24px 0 20px;
+      gap: 12px;
+      font-size: 1.0625rem;
+      box-shadow: 5px 5px 0 #1c1c1f;
+    }
+
+    .block-button :global(.block-button-icon) {
+      width: 18px;
+    }
+
+    .hero-photo {
+      position: relative;
+      left: auto;
+      top: auto;
+      width: auto;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      margin-top: 40px;
+    }
+
+    .passe-tag {
+      right: 12px;
+      bottom: 12px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+    }
+
+    .band {
+      position: relative;
+      left: calc(var(--gutter) * -1 - 2vw);
+      top: auto;
+      width: calc(100% + var(--gutter) * 2 + 6vw);
+      height: auto;
+      margin-top: 48px;
+      transform: rotate(-2deg);
+      transform-origin: center;
+    }
+
+    .band-set {
+      gap: 14px;
+      padding: 14px 7px 12px 20px;
+    }
+
+    .band-word {
+      font-size: 2.75rem;
+    }
+
+    .band-dot {
+      width: 8px;
+      height: 8px;
+    }
+  }
+</style>

@@ -1,0 +1,471 @@
+---
+import Icon from './Icon.astro';
+import { diagnostic, products, projects } from '../data/content';
+import { whatsappHref } from '../data/site';
+---
+<section class="section products" id="produtos" aria-labelledby="produtos-title">
+  <div class="container">
+    <header class="products-head">
+      <h2 class="h2" id="produtos-title">Produtos e preços</h2>
+      <p class="lead">
+        Cada produto tem uma implantação, que constrói a base, e uma continuidade mensal, com volume escrito em
+        contrato. Tudo começa pelo Diagnóstico.
+      </p>
+    </header>
+
+    <article class="diagnostic" aria-labelledby="diag-title">
+      <div class="diagnostic-main">
+        <h3 class="diagnostic-title" id="diag-title">{diagnostic.name}</h3>
+        <p class="diagnostic-meta">A porta de entrada. Prazo de {diagnostic.duration}.</p>
+        <p class="diagnostic-price">{diagnostic.price}</p>
+        <p class="diagnostic-credit">{diagnostic.credit}</p>
+      </div>
+      <ul class="diagnostic-scope">
+        {diagnostic.scope.map((item) => <li>{item}</li>)}
+      </ul>
+    </article>
+
+    <div class="price-list">
+      <div class="price-row price-labels" aria-hidden="true">
+        <span>Produto</span>
+        <span>Implantação</span>
+        <span>Continuidade</span>
+        <span>Permanência</span>
+        <span></span>
+      </div>
+      {products.map((p) => (
+        <details class:list={['price-row-wrap', { featured: p.featured }]}>
+          <summary class="price-row">
+            <span class="price-name">
+              <span class="price-title">{p.name}</span>
+              <span class="price-moment">Para {p.moment.toLowerCase().replace(' + ', ' e ')}</span>
+            </span>
+            <span class="price-cell">
+              <span class="price-cell-label">{p.setup.label}</span>
+              <span class="price-value">{p.setup.value}</span>
+              {p.setup.note && <span class="price-note">{p.setup.note}</span>}
+            </span>
+            <span class="price-cell">
+              {p.ongoing && (
+                <>
+                  <span class="price-cell-label">{p.ongoing.label}</span>
+                  <span class="price-value">{p.ongoing.value}</span>
+                </>
+              )}
+            </span>
+            <span class="price-cell">
+              <span class="price-cell-label">Permanência</span>
+              <span class="price-value price-term">{p.term}</span>
+            </span>
+            <span class="price-toggle" aria-hidden="true"><Icon name="plus" /></span>
+          </summary>
+          <div class="price-detail">
+            <ul>
+              {p.scope.map((item) => <li>{item}</li>)}
+            </ul>
+            {p.excludes && (
+              <p class="price-excludes"><strong>Não inclui:</strong> {p.excludes}</p>
+            )}
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <div class="projects">
+      <div>
+        <h3 class="h3">Projetos Embaixada</h3>
+        <p class="projects-note">Sob demanda, orçados por escopo e indicados depois do Diagnóstico.</p>
+      </div>
+      <ul class="projects-list">
+        {projects.map((p) => <li>{p}</li>)}
+      </ul>
+    </div>
+
+    <div class="products-foot">
+      <p>
+        Sempre fora do fee: verba de mídia, produção de foto e vídeo, impressão, terceiros e deslocamentos fora da
+        Grande Porto Alegre.
+      </p>
+      <a class="btn-block" href={whatsappHref} target="_blank" rel="noopener">
+        Chamar no WhatsApp <Icon name="arrow-right" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .products-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 96px);
+    align-items: end;
+    margin-bottom: clamp(40px, 4vw, 72px);
+  }
+
+  .diagnostic {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: clamp(32px, 4vw, 80px);
+    padding: clamp(28px, 3vw, 56px);
+    background: var(--paper);
+    color: var(--void);
+    border-radius: var(--radius-card);
+  }
+
+  .diagnostic-meta {
+    margin-top: 14px;
+    font-size: clamp(1.0625rem, 1.25vw, 1.25rem);
+    font-weight: 600;
+    color: var(--green-deep);
+  }
+
+  .diagnostic-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-stretch: 62%;
+    font-variation-settings: 'wdth' 62;
+    font-size: clamp(2.5rem, 4.5vw, 5rem);
+    line-height: 1.02;
+    text-transform: uppercase;
+  }
+
+  .diagnostic-price {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 10px 18px;
+    background: var(--void);
+    color: var(--paper);
+    border-radius: 12px;
+    font-family: var(--font-mono);
+    font-size: clamp(1.5rem, 2.2vw, 2.25rem);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .diagnostic-credit {
+    max-width: 38ch;
+    margin-top: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #3f3f46;
+  }
+
+  .diagnostic-scope {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    align-self: center;
+  }
+
+  .diagnostic-scope li {
+    padding-block: 14px;
+    border-bottom: 1px solid #d4d4d8;
+    font-size: clamp(1rem, 1.1vw, 1.125rem);
+    line-height: 1.4;
+  }
+
+  .diagnostic-scope li:first-child {
+    border-top: 1px solid #d4d4d8;
+  }
+
+  .price-list {
+    margin-top: clamp(56px, 5vw, 96px);
+  }
+
+  .price-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 0.8fr) 48px;
+    gap: clamp(16px, 2vw, 40px);
+    align-items: center;
+    padding: clamp(20px, 2vw, 32px) clamp(16px, 1.6vw, 28px);
+  }
+
+  .price-labels {
+    padding-block: 0 14px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--smoke);
+  }
+
+  .price-row-wrap {
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .price-row-wrap:last-child {
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  .price-row-wrap > summary {
+    list-style: none;
+    cursor: pointer;
+    transition: background 250ms var(--ease-out);
+  }
+
+  .price-row-wrap > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .price-row-wrap > summary:hover {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .price-name {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .price-moment {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--green);
+  }
+
+  .price-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-stretch: 62%;
+    font-variation-settings: 'wdth' 62;
+    font-size: clamp(1.75rem, 2.4vw, 2.625rem);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .price-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .price-cell-label {
+    display: none;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--smoke);
+  }
+
+  .price-value {
+    text-wrap: balance;
+    font-size: clamp(1.0625rem, 1.3vw, 1.375rem);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .price-term {
+    font-weight: 400;
+  }
+
+  .price-note {
+    max-width: 30ch;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: var(--smoke);
+  }
+
+  .price-toggle {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 50%;
+    transition:
+      transform 300ms var(--ease-out),
+      background 300ms var(--ease-out);
+  }
+
+  .price-toggle :global(svg) {
+    width: 18px;
+  }
+
+  details[open] .price-toggle {
+    transform: rotate(45deg);
+    background: var(--paper);
+    color: var(--void);
+  }
+
+  .price-detail {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 3.05fr);
+    gap: clamp(16px, 2vw, 40px);
+    padding: 0 clamp(16px, 1.6vw, 28px) clamp(28px, 2.4vw, 40px);
+  }
+
+  .price-detail ul {
+    grid-column: 2;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    columns: 2;
+    column-gap: clamp(24px, 3vw, 56px);
+  }
+
+  .price-detail li {
+    break-inside: avoid;
+    padding-block: 10px;
+    border-bottom: 1px solid var(--rule);
+    font-size: 1rem;
+    line-height: 1.45;
+    color: var(--paper);
+  }
+
+  .price-excludes {
+    grid-column: 2;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--smoke);
+  }
+
+  .price-excludes strong {
+    font-weight: 600;
+    color: var(--paper);
+  }
+
+  .featured {
+    background: var(--green);
+    border-color: var(--green);
+    color: var(--void);
+  }
+
+  .featured .price-title {
+    color: var(--white);
+  }
+
+  .featured .price-moment,
+  .featured .price-note,
+  .featured .price-cell-label,
+  .featured .price-value,
+  .featured .price-term,
+  .featured .price-excludes,
+  .featured .price-excludes strong,
+  .featured .price-detail li,
+  .featured .price-toggle {
+    color: #09090b;
+  }
+
+  .featured .price-detail li {
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .featured .price-toggle {
+    border-color: rgba(0, 0, 0, 0.35);
+  }
+
+  .featured > summary:hover {
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  .featured[open] .price-toggle {
+    background: var(--void);
+    color: var(--white);
+  }
+
+  .projects {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: clamp(24px, 4vw, 80px);
+    margin-top: clamp(56px, 5vw, 96px);
+  }
+
+  .projects-note {
+    max-width: 32ch;
+    margin-top: 12px;
+    color: var(--smoke);
+  }
+
+  .projects-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    align-content: start;
+  }
+
+  .projects-list li {
+    padding: 10px 18px;
+    border: 1px solid var(--glass-line);
+    border-radius: 999px;
+    background: var(--glass);
+    font-size: 0.9375rem;
+    color: var(--paper);
+  }
+
+  .products-foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px 48px;
+    margin-top: clamp(56px, 5vw, 96px);
+    padding-top: clamp(32px, 3vw, 48px);
+    border-top: 1px solid var(--rule);
+  }
+
+  .products-foot p {
+    max-width: 56ch;
+    color: var(--smoke);
+  }
+
+  @media (max-width: 1000px) {
+    .products-head,
+    .diagnostic,
+    .projects {
+      grid-template-columns: 1fr;
+    }
+
+    .price-labels {
+      display: none;
+    }
+
+    .price-row {
+      grid-template-columns: 1fr 1fr 44px;
+      grid-template-areas:
+        'name name toggle'
+        'setup ongoing ongoing'
+        'term term term';
+      row-gap: 18px;
+      align-items: start;
+    }
+
+    .price-name {
+      grid-area: name;
+    }
+
+    .price-cell:nth-of-type(2) {
+      grid-area: setup;
+    }
+
+    .price-cell:nth-of-type(3) {
+      grid-area: ongoing;
+    }
+
+    .price-cell:nth-of-type(4) {
+      grid-area: term;
+    }
+
+    .price-toggle {
+      grid-area: toggle;
+      align-self: start;
+    }
+
+    .price-cell-label {
+      display: block;
+    }
+
+    .price-detail {
+      grid-template-columns: 1fr;
+    }
+
+    .price-detail ul,
+    .price-excludes {
+      grid-column: 1;
+      columns: 1;
+    }
+  }
+</style>

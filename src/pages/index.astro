@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import Hero from '../components/Hero.astro';
+import Moments from '../components/Moments.astro';
+import Problem from '../components/Problem.astro';
+import Method from '../components/Method.astro';
+import Products from '../components/Products.astro';
+import Band from '../components/Band.astro';
+import Steps from '../components/Steps.astro';
+import History from '../components/History.astro';
+import Faq from '../components/Faq.astro';
+import FinalCta from '../components/FinalCta.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+<Base
+  title="Embaixada Gourmet · Consultoria integrada para negócios de gastronomia"
+  description="Abrir. Ajustar. Crescer. Operação, marca e demanda num único parceiro para restaurantes de Porto Alegre e Grande POA."
+>
+  <SiteHeader />
+  <main id="conteudo">
+    <Hero />
+    <Moments />
+    <Problem />
+    <Method />
+    <div class="band-entry">
+      <Band
+        words={[
+          { text: 'Diagnóstico' },
+          { text: 'Implantação', outline: true },
+          { text: 'Continuidade' },
+          { text: 'Projetos', outline: true },
+        ]}
+      />
+    </div>
+    <Products />
+    <Steps />
+    <History />
+    <Faq />
+    <FinalCta />
+  </main>
+  <SiteFooter />
+</Base>
+
+<style>
+  .band-entry {
+    overflow: hidden;
+    padding-block: clamp(40px, 4vw, 72px) 0;
+  }
+</style>

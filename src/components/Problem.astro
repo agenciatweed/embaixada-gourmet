@@ -1,0 +1,97 @@
+---
+import { fragmented } from '../data/content';
+---
+<section class="problem" aria-labelledby="problema-title">
+  <div class="container">
+    <h2 class="h2 problem-title" id="problema-title">O dono fica no meio.</h2>
+    <ul class="problem-list">
+      {fragmented.map((row) => (
+        <li>
+          <span class="problem-who">{row.who} {row.sells}</span>
+          <span class="problem-miss">{row.misses}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="problem-answer">
+      A Embaixada olha o restaurante inteiro. <span>Estratégia, operação, marca e demanda num único parceiro,
+      trabalhando sobre o mesmo plano.</span>
+    </p>
+  </div>
+</section>
+
+<style>
+  .problem {
+    padding-block: clamp(96px, 10vw, 192px);
+    background: var(--ink);
+    border-block: 1px solid var(--rule);
+  }
+
+  .problem-title {
+    max-width: 14ch;
+  }
+
+  .problem-list {
+    margin: clamp(48px, 5vw, 88px) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .problem-list li {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: clamp(12px, 3vw, 64px);
+    align-items: baseline;
+    padding-block: clamp(22px, 2.4vw, 40px);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .problem-who {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-stretch: 62%;
+    font-variation-settings: 'wdth' 62;
+    font-size: clamp(2rem, 4vw, 4.25rem);
+    line-height: 1.06;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+
+  .problem-miss {
+    font-size: clamp(1.125rem, 1.5vw, 1.625rem);
+    line-height: 1.35;
+    color: var(--smoke);
+  }
+
+  .problem-answer {
+    max-width: 30ch;
+    margin-top: clamp(48px, 5vw, 88px);
+    margin-left: auto;
+    font-size: clamp(1.75rem, 2.8vw, 3rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--green);
+    text-wrap: balance;
+  }
+
+  .problem-answer span {
+    display: block;
+    margin-top: 16px;
+    font-size: clamp(1.0625rem, 1.25vw, 1.375rem);
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0;
+    color: var(--paper);
+  }
+
+  @media (max-width: 900px) {
+    .problem-list li {
+      grid-template-columns: 1fr;
+    }
+
+    .problem-answer {
+      margin-left: 0;
+    }
+  }
+</style>

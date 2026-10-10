@@ -1,0 +1,22 @@
+---
+import { siWhatsapp, siInstagram } from 'simple-icons';
+
+interface Props {
+  name: 'whatsapp' | 'instagram' | 'arrow-right' | 'arrow-up-right' | 'plus';
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+const brand = { whatsapp: siWhatsapp.path, instagram: siInstagram.path } as Record<string, string>;
+---
+{brand[name] ? (
+  <svg class={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d={brand[name]} />
+  </svg>
+) : (
+  <svg class={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true">
+    {name === 'arrow-right' && <path d="M4 12h15M13 6l6 6-6 6" />}
+    {name === 'arrow-up-right' && <path d="M7 17 17 7M8 7h9v9" />}
+    {name === 'plus' && <path d="M12 5v14M5 12h14" />}
+  </svg>
+)}

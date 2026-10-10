@@ -1,0 +1,86 @@
+---
+interface Props {
+  words: { text: string; outline?: boolean }[];
+}
+
+const { words } = Astro.props;
+---
+<div class="band-strip" aria-hidden="true">
+  <div class="band-strip-track">
+    {[0, 1].map(() => (
+      <div class="band-strip-set">
+        {words.map((w) => (
+          <>
+            <span class:list={['band-strip-word', { 'is-outline': w.outline }]}>{w.text}</span>
+            <span class="band-strip-dot"></span>
+          </>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .band-strip {
+    position: relative;
+    width: 106vw;
+    margin-left: -3vw;
+    overflow: hidden;
+    background: var(--green);
+    transform: rotate(-2deg);
+  }
+
+  .band-strip-track {
+    display: flex;
+    width: max-content;
+    animation: strip-run 36s linear infinite reverse;
+  }
+
+  .band-strip:hover .band-strip-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes strip-run {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .band-strip-set {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 1.7vw, 32px);
+    padding: clamp(12px, 1vw, 20px) clamp(7px, 0.85vw, 16px) clamp(10px, 0.8vw, 16px) clamp(20px, 3.1vw, 56px);
+  }
+
+  .band-strip-word {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-stretch: 62%;
+    font-variation-settings: 'wdth' 62;
+    font-size: clamp(2.75rem, 5.4vw, 6rem);
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--white);
+  }
+
+  .band-strip-word.is-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--white);
+  }
+
+  .band-strip-dot {
+    flex: none;
+    width: clamp(8px, 0.85vw, 14px);
+    height: clamp(8px, 0.85vw, 14px);
+    border-radius: 50%;
+    background: var(--white);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .band-strip-track {
+      animation: none;
+    }
+  }
+</style>

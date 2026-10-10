@@ -1,0 +1,133 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import historia from '../../assets/plates/historia.png';
+import { INSTAGRAM_HREF } from '../data/site';
+---
+<section class="history" id="historia" aria-labelledby="historia-title">
+  <div class="history-media">
+    <Image
+      src={historia}
+      alt="Jantar em mesa comunitária com um chef servindo os convidados (imagem ilustrativa)"
+      widths={[640, 960, 1400, 1800]}
+      sizes="(max-width: 900px) 100vw, 50vw"
+      format="webp"
+      quality={72}
+    />
+  </div>
+  <div class="history-copy">
+    <h2 class="h2" id="historia-title">Antes, o prato. Agora, o que faz a casa funcionar.</h2>
+    <p class="lead">
+      Por anos, a Embaixada Gourmet reuniu Porto Alegre em volta da mesa: eventos, jantares e a Embaixada Gourmet
+      Experience na CASACOR. Agora a marca muda de lado do balcão e passa a trabalhar para quem faz a gastronomia
+      acontecer.
+    </p>
+    <dl class="history-facts">
+      <div>
+        <dt>Equipe</dt>
+        <dd>Profissionais com mais de 20 anos de experiência em gastronomia e em marketing.</dd>
+      </div>
+      <div>
+        <dt>Onde</dt>
+        <dd>Porto Alegre e Grande Porto Alegre. Serra gaúcha a partir do segundo semestre de 2027.</dd>
+      </div>
+    </dl>
+    <a class="history-link" href={INSTAGRAM_HREF} target="_blank" rel="noopener">
+      <Icon name="instagram" class="history-icon" /> @embaixadagourmetbr
+    </a>
+  </div>
+</section>
+
+<style>
+  .history {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    background: var(--ink);
+    border-block: 1px solid var(--rule);
+  }
+
+  .history-media {
+    position: relative;
+    min-height: 560px;
+  }
+
+  .history-media :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+  }
+
+  .history-copy {
+    align-self: center;
+    padding: clamp(64px, 7vw, 144px) var(--gutter);
+  }
+
+  .history-copy .lead {
+    margin-top: clamp(24px, 2.4vw, 40px);
+  }
+
+  .history-facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 40px;
+    margin: clamp(32px, 3vw, 56px) 0 0;
+  }
+
+  .history-facts div {
+    padding-top: 16px;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .history-facts dt {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+
+  .history-facts dd {
+    margin: 10px 0 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--paper);
+  }
+
+  .history-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: clamp(32px, 3vw, 48px);
+    font-size: 1.125rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--paper);
+  }
+
+  .history-link :global(.history-icon) {
+    width: 22px;
+    color: var(--green);
+  }
+
+  .history-link:hover {
+    color: var(--green);
+  }
+
+  @media (max-width: 900px) {
+    .history {
+      grid-template-columns: 1fr;
+    }
+
+    .history-media {
+      min-height: 0;
+      aspect-ratio: 4 / 3;
+    }
+
+    .history-facts {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

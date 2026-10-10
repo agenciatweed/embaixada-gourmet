@@ -1,0 +1,129 @@
+---
+import Icon from './Icon.astro';
+import { NAV, whatsappHref, INSTAGRAM_HREF } from '../data/site';
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <img class="footer-logo" src="/brand/logo-completo-claro.svg" alt="Embaixada Gourmet · Gastronomia 360°" width="379" height="247" loading="lazy" />
+      <nav aria-label="Rodapé">
+        <ul class="footer-nav">
+          {NAV.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <ul class="footer-contact">
+        <li>
+          <a href={whatsappHref} target="_blank" rel="noopener"><Icon name="whatsapp" class="footer-icon" /> WhatsApp</a>
+        </li>
+        <li>
+          <a href={INSTAGRAM_HREF} target="_blank" rel="noopener"><Icon name="instagram" class="footer-icon" /> @embaixadagourmetbr</a>
+        </li>
+        <li>Porto Alegre · RS</li>
+      </ul>
+    </div>
+    <p class="footer-giant" aria-hidden="true">Abrir. Ajustar. Crescer.</p>
+    <div class="footer-bottom">
+      <span>© 2026 Embaixada Gourmet</span>
+      <span>Consultoria integrada para negócios de gastronomia</span>
+      <span>Imagens ilustrativas</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-top: clamp(72px, 7vw, 128px);
+    background: var(--ink);
+    overflow: hidden;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+  }
+
+  .footer-logo {
+    width: clamp(160px, 14vw, 240px);
+    height: auto;
+  }
+
+  .footer-nav,
+  .footer-contact {
+    display: grid;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer-nav a,
+  .footer-contact a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--paper);
+    transition: color 200ms var(--ease-out);
+  }
+
+  .footer-nav a:hover,
+  .footer-contact a:hover {
+    color: var(--green);
+  }
+
+  .footer-contact li {
+    color: var(--smoke);
+  }
+
+  .footer-contact :global(.footer-icon) {
+    width: 18px;
+    color: var(--green);
+  }
+
+  .footer-giant {
+    margin-top: clamp(56px, 6vw, 112px);
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-stretch: 62%;
+    font-variation-settings: 'wdth' 62;
+    font-size: clamp(3.5rem, 8.7vw, 12.5rem);
+    line-height: 0.85;
+    letter-spacing: 0.005em;
+    white-space: nowrap;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 32px;
+    padding-block: 28px;
+    margin-top: clamp(24px, 2vw, 40px);
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--smoke);
+  }
+
+  @media (max-width: 900px) {
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-logo {
+      grid-column: 1 / -1;
+    }
+
+    .footer-giant {
+      white-space: normal;
+    }
+  }
+</style>
