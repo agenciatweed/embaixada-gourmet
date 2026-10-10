@@ -84,7 +84,7 @@ const photos = {
   .moments-grid {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(320px, 27vw));
+    grid-template-rows: repeat(2, clamp(300px, 19vw, 385px));
     gap: clamp(16px, 1.4vw, 24px);
     margin: 0;
     padding: 0;
