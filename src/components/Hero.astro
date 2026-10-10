@@ -59,7 +59,7 @@ const band = [
 <style>
   .hero {
     position: relative;
-    height: max(100svh, 56.55vw);
+    height: max(100svh, 62vw);
     min-height: 640px;
     overflow: hidden;
     background: var(--ink);
@@ -182,12 +182,11 @@ const band = [
   .band {
     position: absolute;
     left: -2vw;
-    top: 50.3vw;
+    bottom: 3.3vw;
     width: 106vw;
-    height: 9vw;
     background: var(--green);
     transform: rotate(-2deg);
-    transform-origin: left top;
+    transform-origin: left bottom;
     overflow: hidden;
   }
 
@@ -241,7 +240,7 @@ const band = [
     display: flex;
     align-items: center;
     gap: 1.7vw;
-    padding: 0.9vw 0.85vw 0 3.1vw;
+    padding: 1.15vw 0.85vw 1vw 3.1vw;
   }
 
   .band-word {
@@ -273,7 +272,7 @@ const band = [
     .hero {
       height: auto;
       min-height: 0;
-      padding: 104px var(--gutter) 0;
+      padding: 104px var(--gutter) 40px;
     }
 
     .hero-copy {
@@ -330,6 +329,7 @@ const band = [
       position: relative;
       left: calc(var(--gutter) * -1 - 2vw);
       top: auto;
+      bottom: auto;
       width: calc(100% + var(--gutter) * 2 + 6vw);
       height: auto;
       margin-top: 48px;
